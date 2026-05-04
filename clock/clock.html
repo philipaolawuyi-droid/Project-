@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock - Multiple Time Zones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .digital-clock-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .clock-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .clock-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .clock-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .clocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .clock-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .clock-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .clock-timezone {
+            color: #87ceeb;
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .clock-time {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+            font-variant-numeric: tabular-nums;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .clocks-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .clock-header h2 {
+                font-size: 2rem;
+            }
+
+            .clock-time {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="clockContainer"></div>
+
+    <script src="clock.js"></script>
+    <script>
+        // Initialize and start the digital clock
+        document.addEventListener('DOMContentLoaded', function() {
+            const timezones = [
+                'UTC',
+                'America/New_York',
+                'America/Chicago',
+                'America/Denver',
+                'America/Los_Angeles',
+                'Europe/London',
+                'Europe/Paris',
+                'Europe/Berlin',
+                'Asia/Dubai',
+                'Asia/Kolkata',
+                'Asia/Bangkok',
+                'Asia/Hong_Kong',
+                'Asia/Shanghai',
+                'Asia/Tokyo',
+                'Asia/Seoul',
+                'Australia/Sydney'
+            ];
+
+            const clock = new DigitalClockJS(timezones);
+            const container = document.getElementById('clockContainer');
+            const display = clock.createHTMLDisplay();
+            
+            container.appendChild(display);
+            clock.start(1000); // Update every second
+        });
+    </script>
+</body>
+</html>
